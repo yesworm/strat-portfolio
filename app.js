@@ -37,7 +37,7 @@ controls.maxDistance = 2;
 
 const loader = new GLTFLoader();
 loader.load(
-  './assets/3dscan.glb',
+  './assets/3Dscan.glb',
   function (gltf) {
     model = gltf.scene;
 
