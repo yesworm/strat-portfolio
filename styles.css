@@ -269,3 +269,22 @@
   .zine-layout {
     flex: 1;
   }
+
+  /* Enhanced case study links with zine-y hover effects */
+.case-study-links a {
+    display: inline-block;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    color: #333;
+    text-decoration: none;
+    transition: transform 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    border-bottom: 1px dashed transparent;
+    padding-left: 0.5rem;
+  }
+  
+  .case-study-links a:hover {
+    transform: translateX(6px);
+    color: #000;
+    background-color: #fffef5;
+    border-bottom: 1px dashed #aaa;
+  }
