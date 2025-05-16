@@ -242,3 +242,30 @@
     text-decoration: underline;
     font-weight: bold;
   }
+
+  .case-study-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background: #fffdf7;
+    border: 2px dashed #ccc;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+  }
+  
+  .zine-layout {
+    flex: 1;
+  }
