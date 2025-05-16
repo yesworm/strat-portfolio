@@ -12,9 +12,13 @@ const canvas = document.getElementById('head-canvas');
 scene = new THREE.Scene();
 scene.background = null;
 
+// Calculate the correct aspect ratio for the left half of screen
+const canvasWidth = window.innerWidth * 0.5;
+const canvasHeight = window.innerHeight;
+
 camera = new THREE.PerspectiveCamera(
     75,
-    window.innerWidth / window.innerHeight,
+    canvasWidth / canvasHeight,  // Use the actual canvas aspect ratio
     0.1,
     1000
 );
@@ -24,7 +28,7 @@ camera.position.set(0, 0, 1);
 
 renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 // Set renderer size to only cover the left half of the screen
-renderer.setSize(window.innerWidth * 0.5, window.innerHeight);
+renderer.setSize(canvasWidth, canvasHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
@@ -52,7 +56,7 @@ loader.load(
         model.position.copy(center).multiplyScalar(-1);
         
         // Adjust Y position
-        model.position.y += 0.1;
+        model.position.y += 0.0;
         
         // Scale the model slightly larger since it's in a smaller viewport
         model.scale.set(1.0, 1.0, 1.0);
@@ -86,10 +90,15 @@ function animate() {
 animate();
 
 window.addEventListener('resize', () => {
+    // Calculate canvas dimensions
+    const canvasWidth = window.innerWidth * 0.5;
+    const canvasHeight = window.innerHeight;
+    
     // Update camera aspect for the left half of screen
-    camera.aspect = (window.innerWidth * 0.5) / window.innerHeight;
+    camera.aspect = canvasWidth / canvasHeight;
     camera.updateProjectionMatrix();
+    
     // Resize renderer to cover left half of screen
-    renderer.setSize(window.innerWidth * 0.5, window.innerHeight);
+    renderer.setSize(canvasWidth, canvasHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 });
