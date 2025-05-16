@@ -1,123 +1,189 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #fefcf7;
-  font-family: 'Courier New', Courier, monospace;
-  overflow: hidden;
-  position: relative;
-  color: #222;
-  font-size: 16px;
-}
-
-/* Centered Stacked Container */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  position: relative;
-  padding: 2rem;
-  gap: 2rem;
-}
-
-/* 3D Head Canvas */
-#head-canvas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  height: 400px;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Navigation */
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  z-index: 4;
-}
-
-.nav-links .nav-item {
-  font-size: 1.2rem;
-  background: none;
-  border: none;
-  color: #333;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  transition: all 0.2s ease;
-}
-
-.nav-links .nav-item::before {
-  content: '🍃';
-}
-
-.nav-links .nav-item:hover {
-  color: #000;
-  transform: scale(1.1);
-}
-
-/* Floating Emojis */
-.emoji {
-  font-size: 2rem;
-  position: absolute;
-  animation: float 4s ease-in-out infinite;
-  user-select: none;
-  pointer-events: none;
-  opacity: 0.7;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
-
-/* Blurb */
-.blurb {
-  max-width: 600px;
-  text-align: center;
-  background: #fffefc;
-  padding: 1.5rem;
-  border: 2px dashed #ccc;
-  font-size: 1.1rem;
-  z-index: 3;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-}
-
-.blurb a {
-  color: #000;
-  text-decoration: underline;
-}
-
-/* Garden Background Accents */
-body::before {
-  content: '🌿🪴🌸🐞🌀🌼';
-  position: absolute;
-  top: 5%;
-  left: 10%;
-  font-size: 2rem;
-  opacity: 0.2;
-  transform: rotate(-10deg);
-}
-
-body::after {
-  content: '🍄🐌🌻🍃🐜🌱';
-  position: absolute;
-  bottom: 5%;
-  right: 10%;
-  font-size: 2rem;
-  opacity: 0.2;
-  transform: rotate(10deg);
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #fefcf7;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    position: relative;
+    color: #222;
+    font-size: 16px;
+  }
+  
+  /* Centered Stacked Container */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  
+  /* 3D Head Canvas - Positioned on the left side */
+  #head-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%; /* Take up left half of screen */
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  /* About page specific styles */
+  .about-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+    padding: 2rem;
+  }
+  
+  .about-content {
+    flex: 1;
+    max-width: 500px;
+    margin-left: 50%; /* Push content to the right half */
+    padding-left: 2rem;
+    z-index: 5;
+    position: relative;
+  }
+  
+  .about-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: normal;
+  }
+  
+  .about-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .about-content a {
+    color: #333;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+  
+  .about-content a:hover {
+    color: #000;
+  }
+  
+  /* Navigation */
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    z-index: 4;
+    position: relative;
+  }
+  
+  .nav-links .nav-item {
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.2s ease;
+  }
+  
+  .nav-links .nav-item::before {
+    content: '🍃';
+  }
+  
+  .nav-links .nav-item:hover {
+    color: #000;
+    transform: scale(1.1);
+  }
+  
+  /* Floating Emojis */
+  .emoji {
+    font-size: 2rem;
+    position: absolute;
+    animation: float 4s ease-in-out infinite;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 2;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+  
+  /* Blurb */
+  .blurb {
+    max-width: 600px;
+    text-align: center;
+    background: #fffefc;
+    padding: 1.5rem;
+    border: 2px dashed #ccc;
+    font-size: 1.1rem;
+    z-index: 3;
+    position: relative;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+  }
+  
+  .blurb a {
+    color: #000;
+    text-decoration: underline;
+  }
+  
+  /* Garden Background Accents */
+  body::before {
+    content: '🌿🪴🌸🐞🌀🌼';
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    font-size: 2rem;
+    opacity: 0.2;
+    transform: rotate(-10deg);
+    z-index: 1;
+  }
+  
+  body::after {
+    content: '🍄🐌🌻🍃🐜🌱';
+    position: absolute;
+    bottom: 5%;
+    right: 10%;
+    font-size: 2rem;
+    opacity: 0.2;
+    transform: rotate(10deg);
+    z-index: 1;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    #head-canvas {
+      width: 100%;
+      height: 40vh;
+      top: 0;
+    }
+    
+    .about-content {
+      margin-left: 0;
+      padding-left: 0;
+      margin-top: 40vh;
+      text-align: center;
+    }
+    
+    .about-layout {
+      flex-direction: column;
+      height: auto;
+    }
+  }

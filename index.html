@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sam Geyer | Insight Garden</title>
+  <title>Sam Geyer | Digital Insights Specialist</title>
   <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="app.js" defer></script>
 </head>
 <body>
   <div class="container">
-    <!-- Canvas for 3D head -->
-    <canvas id="head-canvas"></canvas>
-
     <!-- Floating nav links -->
-    <nav class="nav-links">
-      <a href="about.html" class="nav-item" style="top: 10%; left: 20%;">about</a>
-      <a href="work.html" class="nav-item" style="top: 20%; right: 20%;">work</a>
-      <a href="contact.html" class="nav-item" style="bottom: 20%; left: 25%;">get in touch</a>
-      <a href="blog.html" class="nav-item" style="bottom: 10%; right: 25%;">blog</a>
+    <nav class="nav-links-wrapper">
+      <div class="nav-links">
+        <a href="/about" class="nav-item" style="top: 10%; left: 20%;">about</a>
+        <a href="/work" class="nav-item" style="top: 20%; right: 20%;">work</a>
+        <a href="/contact" class="nav-item" style="bottom: 20%; left: 25%;">get in touch</a>
+        <a href="/blog" class="nav-item" style="bottom: 10%; right: 25%;">blog</a>
+      </div>
     </nav>
 
     <!-- Floating emojis -->
@@ -27,12 +25,14 @@
     <div class="emoji 🍄" style="bottom: 20%; right: 15%;">🍄</div>
 
     <!-- Blurb -->
-    <div class="blurb">
-      <p>
-        I turn post-launch chaos into strategy.<br />
-        Dashboards, funnels, and feedback loops that don't suck.<br /><br />
-        If you’ve got data but no direction — <a href="mailto:geyerwork@gmail.com">say hi</a>.
-      </p>
+    <div class="blurb-wrapper">
+      <div class="blurb">
+        <p>
+          I turn post-launch chaos into strategy.<br />
+          Dashboards, funnels, and feedback loops that dont suck.<br /><br />
+          If you've got data but no direction — <a href="mailto:geyerwork@gmail.com">say hi</a>.
+        </p>
+      </div>
     </div>
   </div>
 </body>

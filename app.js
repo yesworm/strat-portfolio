@@ -1,6 +1,6 @@
-import * as THREE from 'https://unpkg.com/three@0.157.0/build/three.module.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.157.0/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.157.0/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'https://esm.sh/three@0.157.0';
+import { OrbitControls } from 'https://esm.sh/three@0.157.0/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'https://esm.sh/three@0.157.0/examples/jsm/loaders/GLTFLoader';
 
 let autoRotate = true;
 const rotationSpeed = 0.005;
@@ -8,68 +8,88 @@ let scene, camera, renderer, controls, model;
 let hasClicked = false;
 
 const canvas = document.getElementById('head-canvas');
+
 scene = new THREE.Scene();
 scene.background = null;
 
 camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
 );
-camera.position.z = 1;
+
+// Adjust camera for left-side positioning
+camera.position.set(0, 0, 1);
 
 renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+// Set renderer size to only cover the left half of the screen
+renderer.setSize(window.innerWidth * 0.5, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(0, 1, 1);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+directionalLight.position.set(0, 3, 1);
 scene.add(directionalLight);
 
-controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
-controls.minDistance = 0.5;
-controls.maxDistance = 2;
-
 const loader = new GLTFLoader();
+console.log('Attempting to load 3D model...');
+
 loader.load(
-  './assets/3dscan.glb',
-  function (gltf) {
-    model = gltf.scene;
-
-    const box = new THREE.Box3().setFromObject(model);
-    const center = box.getCenter(new THREE.Vector3());
-
-    center.y -= -0.9;
-    model.position.sub(center);
-    camera.position.y = 0.1;
-    camera.lookAt(0, 0.5, 0);
-    model.scale.set(3, 3, 3);
-
-    scene.add(model);
-  },
-  undefined,
-  function (error) {
-    console.error('An error occurred loading the model:', error);
-  }
+    './assets/3dscan.glb',
+    function (gltf) {
+        console.log('3D model loaded successfully.');
+        model = gltf.scene;
+        
+        // Calculate bounding box
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        
+        // Center the model properly
+        model.position.copy(center).multiplyScalar(-1);
+        
+        // Adjust Y position
+        model.position.y += 0.1;
+        
+        // Scale the model slightly larger since it's in a smaller viewport
+        model.scale.set(1.0, 1.0, 1.0);
+        
+        // Position camera based on model size
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const fov = camera.fov * (Math.PI / 180);
+        let cameraZ = Math.abs(maxDim / (2 * Math.tan(fov / 2)));
+        
+        camera.position.set(0, 0, cameraZ * 1.5);
+        camera.lookAt(0, 0, 0);
+        
+        scene.add(model);
+    },
+    undefined,
+    function (error) {
+        console.error('An error occurred loading the model:', error);
+    }
 );
 
 function animate() {
-  requestAnimationFrame(animate);
-  if (model && autoRotate) {
-    model.rotation.y += rotationSpeed;
-  }
-  controls.update();
-  renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+    
+    if (model && autoRotate) {
+        model.rotation.y += rotationSpeed;
+    }
+    
+    renderer.render(scene, camera);
 }
+
 animate();
 
 window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+    // Update camera aspect for the left half of screen
+    camera.aspect = (window.innerWidth * 0.5) / window.innerHeight;
+    camera.updateProjectionMatrix();
+    // Resize renderer to cover left half of screen
+    renderer.setSize(window.innerWidth * 0.5, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
 });
