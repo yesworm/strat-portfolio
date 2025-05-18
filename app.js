@@ -56,10 +56,10 @@ loader.load(
         model.position.copy(center).multiplyScalar(-1);
         
         // Adjust Y position
-        model.position.y += 0.0;
+        model.position.y += 0.1;
         
         // Scale the model slightly larger since it's in a smaller viewport
-        model.scale.set(1.0, 1.0, 1.0);
+        model.scale.set(0.6, 0.6, 0.6);
         
         // Position camera based on model size
         const maxDim = Math.max(size.x, size.y, size.z);
